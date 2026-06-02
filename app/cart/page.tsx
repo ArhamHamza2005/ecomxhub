@@ -13,6 +13,11 @@ export default function CartPage() {
   const shipping = subtotal > 50 ? 0 : 10
   const finalTotal = subtotal + shipping
 
+   const formatPrice = (price: number, currency: string = "GBP") => {
+  if (currency === "GBP") return `£${price.toFixed(2)}`;
+  return `$${price.toFixed(2)}`;
+};
+
   if (items.length === 0) {
     return (
       <main className="min-h-screen">
@@ -68,7 +73,7 @@ export default function CartPage() {
                         {item.name}
                       </Link>
                       <p className="text-muted-foreground text-sm capitalize">{item.category}</p>
-                      <p className="text-primary font-bold mt-2">${item.price.toFixed(2)}</p>
+                     <span className="text-4xl font-bold text-primary">{formatPrice(item.price, item.currency)}</span>
                     </div>
                     <div className="flex flex-col items-end justify-between">
                       <button
@@ -113,7 +118,7 @@ export default function CartPage() {
                 </div>
                 <div className="flex justify-between mb-6">
                   <span className="font-semibold">Total</span>
-                  <span className="text-2xl font-bold text-primary">${finalTotal.toFixed(2)}</span>
+                  <span className="text-2xl font-bold text-primary"> {formatPrice(finalTotal)}</span>
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
